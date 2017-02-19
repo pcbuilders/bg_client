@@ -3,7 +3,6 @@ FROM erlang:19
 # elixir expects utf8.
 ENV ELIXIR_VERSION="v1.3.4" \
 	LANG=C.UTF-8 \
-  PATH=$PATH:/opt/node/bin \
   MIX_ENV=prod
 
 WORKDIR /app
@@ -25,7 +24,7 @@ RUN set -xe \
 	' \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $buildDeps \
-  && curl -sL https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz | tar xz --strip-components=1 \
+  && curl -sL https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz | tar xz --strip-components=1 -C /usr/local/bin \
 	&& curl -fSL -o elixir-precompiled.zip $ELIXIR_DOWNLOAD_URL \
 	&& echo "$ELIXIR_DOWNLOAD_SHA256 elixir-precompiled.zip" | sha256sum -c - \
 	&& unzip -d /usr/local elixir-precompiled.zip \
