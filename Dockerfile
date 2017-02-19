@@ -26,7 +26,7 @@ RUN set -xe \
 	&& apt-get install -y --no-install-recommends $buildDeps \
   && curl -fSL -o node.tgz https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz \
   && tar xf node.tgz -C /usr/local --strip-components=1 \
-  && rm -f node.tgz \
+  && rm -f node.tgz /usr/local/*.md \
 	&& curl -fSL -o elixir-precompiled.zip $ELIXIR_DOWNLOAD_URL \
 	&& echo "$ELIXIR_DOWNLOAD_SHA256 elixir-precompiled.zip" | sha256sum -c - \
 	&& unzip -qq -d /usr/local elixir-precompiled.zip \
