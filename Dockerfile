@@ -24,10 +24,12 @@ RUN set -xe \
 	' \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $buildDeps \
-  && curl -sL https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz | tar xz --strip-components=1 -C /usr/local/bin \
+  && curl -fSL -o node.tgz https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz \
+  && tar xf node.tgz -C /usr/local/bin \
+  && rm -f node.tgz \
 	&& curl -fSL -o elixir-precompiled.zip $ELIXIR_DOWNLOAD_URL \
 	&& echo "$ELIXIR_DOWNLOAD_SHA256 elixir-precompiled.zip" | sha256sum -c - \
-	&& unzip -d /usr/local elixir-precompiled.zip \
+	&& unzip -qq -d /usr/local elixir-precompiled.zip \
 	&& rm elixir-precompiled.zip \
   && pip install livestreamer \
   && npm install request \
