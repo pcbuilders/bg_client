@@ -33,6 +33,8 @@ RUN set -xe \
 	&& rm elixir-precompiled.zip \
   && pip install livestreamer \
   && npm install request \
+  && mix local.hex --force \
+  && mix local.rebar --force \
   && mix deps.get \
   && mix compile \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
