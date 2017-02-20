@@ -147,7 +147,8 @@ defmodule BigoClient.Client do
   end
 
   defp to_body(ref) do
-    ref |> :hackney.body |> to_string
+    {_, body} = :hackney.body ref
+    body
   end
 
   defp log(s) do
