@@ -41,4 +41,4 @@ RUN set -xe \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && apt-get clean
 
-CMD elixir --no-halt -S mix
+CMD epmd -daemon && elixir --no-halt -S mix
