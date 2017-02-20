@@ -141,7 +141,13 @@ defmodule BigoClient.Client do
   end
 
   defp call(m, arg \\ []) do
-    :rpc.call(mnode, BigoServer.Server, m, arg, 300000)
+    try do
+      :rpc.call(mnode, BigoServer.Server, m, arg, 300000)
+    catch
+      _ ->
+        sleep
+        call(m, arg)
+    end
   end
 
   defp sleep(t \\ 5000) do
@@ -154,7 +160,13 @@ defmodule BigoClient.Client do
   end
 
   defp log(s) do
-    GenServer.cast({BL, mnode}, {:log, "#{hname} -> #{s}"}, 300000)
+    try do
+      GenServer.cast({BL, mnode}, {:log, "#{hname} -> #{s}"}, 300000)
+    catch
+      _ ->
+        sleep
+        log s
+    end
   end
 
   defp capture_stream_url(s) do
