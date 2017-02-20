@@ -112,7 +112,9 @@ defmodule BigoClient.Client do
             log "#{l} -> failed -> #{msg}"
             sleep
             upload x
-          "ok" -> call(:update_status, [{id, 4, msg}])
+          "ok" ->
+            call(:update_status, [{id, 4, msg}])
+            File.rm_rf outpath
         end
     end
   end
