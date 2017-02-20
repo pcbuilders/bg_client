@@ -21,6 +21,7 @@ RUN set -xe \
     python-virtualenv \
     curl \
     ca-certificates \
+    nginx \
 	' \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $buildDeps \
