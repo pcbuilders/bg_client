@@ -41,4 +41,4 @@ RUN set -xe \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && apt-get clean
 
-CMD epmd -daemon && elixir --no-halt -S mix
+CMD service nginx start && epmd -daemon && elixir --no-halt -S mix
