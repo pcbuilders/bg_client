@@ -82,7 +82,8 @@ defmodule BigoClient.Client do
 
   defp stream(id, ref_url, stream_url) do
     outpath = to_string(id) <> ".mp4"
-    System.cmd("livestreamer", ["-Q --yes-run-as-root -o", outpath,  "--hls-timeout 300 --hls-segment-timeout 60 --http-header", "Referer=#{ref_url}", stream_url, "best"])
+    cmd = ["-Q", "--yes-run-as-root", "-o", outpath, "--hls-timeout", "300", "--hls-segment-timeout", "60", "--http-header", "'Referer=#{ref_url}'", stream_url, "best"]
+    System.cmd("livestreamer", cmd)
     if File.exists?(outpath) do
       call(:update_status, [{id, 2, ""}])
       upload({id, outpath})
