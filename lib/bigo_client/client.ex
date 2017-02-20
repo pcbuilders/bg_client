@@ -6,7 +6,7 @@ defmodule BigoClient.Client do
   end
 
   def main do
-    :net_kernel.start(:"client@#{hname}", :longnames])
+    :net_kernel.start([:"client@#{hname}", :longnames])
     System.get_env("BG_COOKIE")
     |> String.to_atom
     |> Node.set_cookie
