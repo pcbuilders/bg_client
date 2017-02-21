@@ -103,9 +103,9 @@ defmodule BigoClient.Client do
         sleep
         upload x
       {:ok, parsed} ->
-        msg = case Poison.encode(parsed["msg"]) do
-          {:error, _} -> parsed["msg"]
-          {:ok, encoded} -> encoded
+        msg = case is_map(parsed["msg"]) do
+          true -> Poison.encode!(parsed["msg"])
+          false -> parsed["msg"]
         end
         case parsed["status"] do
           "fatal" ->
